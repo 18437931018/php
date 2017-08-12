@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div style="margin:9px auto;width:500px;height: 300px;overflow: scroll;background: yellow;">
+
+
+	<table border="5" cellspacing="0">
+	<td>用户名</td>
+	<td>账号</td>
+	<td>操作</td>
+	
+		<{foreach from=$touser item=user}>
+		 <tr>
+		 	<td><{$user['uname']}></td><td><{$user['user']}></td><td><a href="shanc.php?id=<{$user['id']}>&oldid=<{$toid}>">删除</a></td>
+		 </tr>
+		<{/foreach}>
+
+	
+
+	</table>
+	
+	</div>
+	<div style="margin:9px auto;width:500px;height: 300px;overflow: scroll;background: yellow;">
+		
+		<table border="5" cellspacing="0">
+	<td>用户名</td>
+	<td>内容</td>
+	<td>操作</td>
+	
+		<{foreach from=$tomsg item=msg}>
+		 <tr>
+		 	<td><{$msg['uname']}></td><td><{$msg['content']|strip_tags|mb_substr:0:15:"utf-8"}></td><td><a href="shanc.php?fid=<{$msg['id']}>&oldid=<{$toid}>">删除</a></td>
+		 </tr>
+		<{/foreach}>
+
+	
+
+	</table>
+	</div>
+
+	<div style="width: 200px;height: 100px;margin: 9px auto;"><a href="hout2.php?id=<{$toid}>">返回首页</a></div>
+	
+</body>
+</html>

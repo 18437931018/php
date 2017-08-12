@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>个人中心</title>
+	<script type="text/javascript" src="__ROOT__/Application/Common/js/jquery.js"></script>
+	<script type="text/javascript" src="__ROOT__/Application/Common/js/kinmaxshow.js"></script>
+	<script type="text/javascript" src="__ROOT__/Application/Common/js/common.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="__ROOT__/Application/Common/css/global.css">
+
+</head>
+
+ 
+<body>
+
+<include file='Application/Common/header.html'/>
+
+
+
+
+<div style="width:200px;height:40px;background:#eee;position: absolute;top:1px;right: 20px;"><{$user['uname']}>欢迎你！<a href="../dengl">注销</a></div>
+
+<div style="width: 1200px;height:500px;margin: 0 auto;background:red;">
+     <div style="width: 30%;height: 500px;background:yellow;display: inline;float: left;">
+       <div style="margin: 20px auto;width: 100px;height: 100px;background: green;">
+       	 <img src="__ROOT__/img/toux.jpg" id="fitimg" onload="javascript:DrawImage(this,110,110);">
+       </div>
+       <div style="width: 99%;height: 300px;background:green;">
+       	 <ul style="width: 99%;height: 300px;">
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">昵称：<{$user['uname']}></li>
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">个性签名：<{$user['sign']}></li>
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">QQ:<{$user['qq']}></li>
+
+       	 </ul>
+       </div>
+     	
+     </div>
+     <div style="width: 70%;height: 500px;background: blue;display: inline;float: left;">
+     	  <div style="margin: 20px auto;width: 100px;height: 100px;background: green;">
+       	 <img src="<{$user['img']}>" id="fitimg2" onload="javascript:DrawImage(this,110,110);">
+       </div>
+       <div style="width: 99%;height: 300px;background:green;">
+       	 <ul style="width: 99%;height: 300px;">
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">昵称：<{$user['uname']}></li>
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">个性签名：<{$user['sign']}></li>
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">QQ:<{$user['qq']}></li>
+          <li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;text-align: center;"><a href="<{:U('reset',array('id'=>$user['id']))}>">修改信息</a>&nbsp;&nbsp;<a href="<{:U('msg',array('id'=>$user['id']))}>">发布动态</a></li>
+       	 </ul>
+       </div>
+     </div>
+
+</div>
+
+
+<include file='Application/Common/footer.html'/>
+
+
+	
+</body>
+</html>

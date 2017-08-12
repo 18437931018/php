@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>添加新闻</title>
+<link rel="stylesheet" type="text/css" href="Theme/Admin/vonuo/static/css/vonuo.css">
+<script type="text/javascript" src="Theme/Admin/vonuo/static/js/jquery.min.js"></script>
+<script charset="utf-8" src="Theme/Admin/vonuo/static/js/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="ueditor.config.js"></script>
+<script type="text/javascript" src="ueditor.all.min.js"></script>
+<script type="text/javascript">
+//选项卡
+function setTab(name,cursel,n){
+	for(i=1;i<=n;i++){
+		var menu=document.getElementById(name+i);
+		var con=document.getElementById("con_"+name+"_"+i);
+		menu.className=i==cursel?"hover":"";
+		con.style.display=i==cursel?"block":"none";
+	}
+}
+function check(){
+	if($.trim($("input[name='title']").val()) == ''){
+		$("#need_title").html("<strong style='color:red;'>请输入文章标题！</strong>");
+		$("input[name='title']").focus();
+		return false;
+	}else{
+		$("#need_title").html("<strong style='color:red;'>√</strong>");
+	}
+	if($("select[name='cid']").val() == 'false'){
+		$("#need_cid").html("<strong style='color:red;'>请选择分类！</strong>");
+		return false;
+	}else{
+		$("#need_cid").html("<strong style='color:red;'>√</strong>");
+	}
+	return true;
+}
+$(function(){
+	$('.plus').toggle(function(){
+		$('#one4,#one5,#one6').show();
+		$(this).html('-删除内容');
+	},function(){
+		$('#one4,#one5,#one6').hide();
+		$(this).html('+增加内容');
+	});
+})
+
+</script>
+<style>
+.plus{ 
+float:left;
+width:auto;
+cursor:pointer;
+line-height: 31px;
+text-align: left;}
+</style>
+</head>
+</head>
+
+<body>
+<div class="gs_wraper gs_p_l0">
+	<div class="title">
+		<a href="javascript:;" id="one1" onclick="setTab('one',1,5)"  class="hover">基本信息</a>
+		<a href="javascript:;" id="one2" onclick="setTab('one',2,5)">高级参数</a>
+		<a href="javascript:;" id="one3" onclick="setTab('one',3,5)">详细内容</a>
+		<a href="javascript:;" id="one4" onclick="setTab('one',4,5)" style="display:none">内容2</a>
+		<a href="javascript:;" id="one5" onclick="setTab('one',5,5)" style="display:none">内容3</a>
+        <span class="plus">+增加内容</span>		
+	</div>
+	<form action="<{spUrl c=news a=addsave}>" method="post" enctype="multipart/form-data">
+	<div class="tab_box" id="con_one_1">
+		<table border="0" cellspacing="0" cellpadding="0" class="table_btm">
+			<{$inputtoken}>
+			<tr>
+				<td class="txt_right txt_s_blue">所属分类：</td>
+				<td>
+					<select name="cid" class="blue_input input_w_175 f_left">
+					<{foreach from=$ncat item=row}>
+					<{if $pid == $row.id}>
+					<option value="<{$row.id}>" selected="selected"><{$row.fulltitle}></option>
+					<{else}>
+					<option value="<{$row.id}>"><{$row.fulltitle}></option>
+					<{/if}>
+					<{/foreach}>
+					</select>
+					<span id="need_cid" style="margin-left:8px;"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="txt_right txt_s_blue">文章标题：</td>
+				<td>
+					<input name="title" type="text" class="blue_input input_w_175" maxlength="200"/>
+					<span id="need_title"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="txt_right txt_s_blue">略缩图：</td>
+				<td>
+			<input name="thumb[]" type="file" size="25" />
+				</td>
+			</tr>
+			<tr>
+				<td class="txt_right txt_s_blue">文章属性：</td>
+				<td>
+					<input name="visible" type="radio" value="1" checked="checked" class="m_lr_5"/><label>可见</label>
+					<input name="visible" type="radio" value="0"  class="m_lr_5"/><label>定时发布</label>
+					<input name="stick" type="checkbox" value="1" class="m_lr_5"/><label>置顶</label>					
+				</td>
+			</tr>
+			<tr>
+				<td class="txt_right txt_s_blue">浏览次数：</td>
+				<td><input name="views" value="1" type="text" class="blue_input input_w_175" maxlength="11"/></td>
+			</tr>
+			<tr>
+				<td class="txt_right txt_s_blue">指定排序：</td>
+				<td><input name="odnum" value="0" type="text" class="blue_input input_w_175" maxlength="11"/></td>
+			</tr>			
+			<tr>
+				<td class="txt_right txt_s_blue">文章来源：</td>
+				<td><input name="source" type="text" class="blue_input input_w_175" value="<{$info.source}>"/></td>
+			</tr>
+			<tr>
+				<td class="txt_right txt_s_blue">文章作者：</td>
+				<td><input name="author" type="text" class="blue_input input_w_175" value="<{$info.author}>"/></td>
+			</tr>
+			<tr>
+				<td class="txt_right txt_s_blue">发布日期：</td>
+				<td><input id="theDate" name="sj" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" readonly="readonly" value='<{$smarty.now|date_format:"%Y-%m-%d %H:%M:%S"}>' class="blue_input input_w_175"/></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><a href="javascript:;" onclick="if(check()){$('form').submit();}" class="sure_submit f_left time">确 定</a><a href="<{spUrl c=news a=index}>" class="return_btn f_left">返 回</a></td>
+			</tr>
+		</table>
+	</div>
+	<!--con_one_1 end-->
+	<div class="tab_box" id="con_one_2" style="display:none">
+		<table border="0" cellspacing="0" cellpadding="0" class="table_btm">
+			<tr>
+				<td class="txt_right txt_s_blue">关键词：</td>
+				<td><input name="keywords" type="text" class="blue_input input_w_250 f_left"/>请以|号分割</td>
+			</tr>
+			<tr>
+				<td class="txt_right txt_s_blue" valign="top">描述信息：</td>
+				<td><textarea name="description" cols="40" rows="4" class="blue_textarea"></textarea></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><a href="javascript:;" onclick="if(check()){$('form').submit();}" class="sure_submit f_left time">确 定</a><a href="<{spUrl c=news a=index}>" class="return_btn f_left">返 回</a></td>
+			</tr>
+		</table>
+	</div>
+	<!--con_one_2 end-->
+	<div class="tab_box" id="con_one_3" style="display:none">
+		<table border="0" cellspacing="0" cellpadding="0" class="table_btm">
+			<tr>
+				<td><!-- 加载编辑器的容器 -->
+				<script id="container" name="content" type="text/plain" style="width:700px;height:250px;"></script>
+                </td>
+                <script type="text/javascript">
+				//编辑器
+				var ue = UE.getEditor('container', {
+					autoHeightEnabled: false,
+					autoFloatEnabled: false
+				});
+				</script>
+                <style>
+				/*#edui1_iframeholder{ height:250px!important; overflow:hidden; overflow-y:visible!important} 
+				body.view{overflow-y:visible!important}*/
+                </style>
+			</tr>
+			<tr>
+				<td><a href="javascript:;" onclick="if(check()){$('form').submit();}" class="sure_submit f_left time">确 定</a><a href="<{spUrl c=news a=index}>" class="return_btn f_left">返 回</a></td>
+			</tr>
+		</table>
+	</div>
+	<!--con_one_3 end-->
+	<div class="tab_box" id="con_one_4" style="display:none">
+		<table border="0" cellspacing="0" cellpadding="0" class="table_btm">
+			<tr>
+				<td><!-- 加载编辑器的容器 -->
+				<script id="container2" name="content2" type="text/plain" style="width:700px;height:250px;"></script>
+                </td>
+                <script type="text/javascript">
+				//编辑器
+				var ue = UE.getEditor('container2', {
+					autoHeightEnabled: false,
+					autoFloatEnabled: false
+				});
+				</script>
+                <style>
+				/*#edui1_iframeholder{ height:250px!important; overflow:hidden; overflow-y:visible!important} 
+				body.view{overflow-y:visible!important}*/
+                </style>
+			</tr>
+			<tr>
+				<td><a href="javascript:;" onclick="if(check()){$('form').submit();}" class="sure_submit f_left time">确 定</a><a href="<{spUrl c=news a=index}>" class="return_btn f_left">返 回</a></td>
+			</tr>
+		</table>
+	</div>
+	<!--con_one_4 end-->
+	<div class="tab_box" id="con_one_5" style="display:none">
+		<table border="0" cellspacing="0" cellpadding="0" class="table_btm">
+			<tr>
+				<td><!-- 加载编辑器的容器 -->
+				<script id="container3" name="content3" type="text/plain" style="width:700px;height:250px;"></script>
+                </td>
+                <script type="text/javascript">
+				//编辑器
+				var ue = UE.getEditor('container3', {
+					autoHeightEnabled: false,
+					autoFloatEnabled: false
+				});
+				</script>
+                <style>
+				/*#edui1_iframeholder{ height:250px!important; overflow:hidden; overflow-y:visible!important} 
+				body.view{overflow-y:visible!important}*/
+                </style>
+			</tr>
+			<tr>
+				<td><a href="javascript:;" onclick="if(check()){$('form').submit();}" class="sure_submit f_left time">确 定</a><a href="<{spUrl c=news a=index}>" class="return_btn f_left">返 回</a></td>
+			</tr>
+		</table>
+	</div>
+	<!--con_one_5 end-->
+	</form>
+<!-- 上传图片 -->
+<div id="uppic" style="position:fixed;left:400px;top:180px;z-index:999;display:none;">
+	<a href="javascript:;" onclick="cancelSel();" title="关闭" class="f_right f_14 f_weight closeBtn">×</a>
+	<iframe id="upimgframe" src="" width="325" height="130" frameborder="no" scrolling="no"></iframe>
+</div>
+<div id="zhezhao" class="zhezhao"></div>
+</div>
+</body>
+</html>

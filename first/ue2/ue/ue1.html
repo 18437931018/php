@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript" src="../ueditor/ueditor.config.js"></script>
+     <script type="text/javascript" src="../ueditor/ueditor.all.min.js"></script>
+     <script type="text/javascript" src="jquery.js"></script>
+     <form action="ue1.php" method="POST">
+     	 <script type="text/plain" id="textarea" name="textarea"></script>
+		<script type="text/javascript">
+			var editor=new UE.ui.Editor();
+			editor.render("textarea");
+		</script>
+       <input type="button" value="sss" id="vv"></input>
+		<input type="submit" value="tij"></input>
+		
+     </form>
+     <script type="text/javascript">
+     	
+     	$('#vv').click(function(){
+     		var ss=editor.getContent();
+     		alert(ss);
+     	});
+     </script>
+
+</body>
+</html>

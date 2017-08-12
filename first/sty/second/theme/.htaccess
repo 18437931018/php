@@ -1,0 +1,2 @@
+RewriteEngine On 
+RewriteRule ^xiangx-([0-9]+).html$ xiangx.php?id=$1

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>看看</title>
+  <script type="text/javascript" src="__ROOT__/Application/Common/js/jquery.js"></script>
+  <script type="text/javascript" src="__ROOT__/Application/Common/js/kinmaxshow.js"></script>
+  <script type="text/javascript" src="__ROOT__/Application/Common/js/common.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="__ROOT__/Application/Common/css/global.css">
+
+</head>
+<body style="margin: 0px;background: #ccc;">
+
+<include file='Application/Common/header.html'/>
+
+<div style="width:200px;height:40px;background:#eee;position: absolute;top:1px;right: 20px;"><{$user['uname']}>欢迎你！<a href="../dengl">注销</a></div>
+
+<div style="width: 1200px;height:500px;margin: 0 auto;background:red;">
+     <div style="width: 30%;height: 500px;background:yellow;display: inline;float: left;">
+       <div style="margin: 20px auto;width: 100px;height: 100px;background: green;">
+       	 <img src="__ROOT__/img/toux.jpg" id="fitimg" onload="javascript:DrawImage(this,110,110);">
+       </div>
+       <div style="width: 99%;height: 300px;background:green;">
+       	 <ul style="width: 99%;height: 300px;">
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">昵称：sfsf</li>
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">个性签名：ssssssssssssssssssss</li>
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">QQ:</li>
+
+       	 </ul>
+       </div>
+     	
+     </div>
+     <div style="width: 70%;height: 500px;background: blue;display: inline;float: left;">
+     	  <div style="margin: 20px auto;width: 100px;height: 100px;background: green;">
+       	 <img src="<{$user['img']}>" id="fitimg2">
+       </div>
+       <div style="width: 99%;height: 300px;background:green;">
+       	 <ul style="width: 99%;height: 300px;">
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">昵称：<input type="text" value="<{$user['uname']}>" id='toname'></input></li>
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">个性签名：<input type="text" value="<{$user['sign']}>" id='tosign'></input></li>
+       	 	<li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;">QQ:<input type="text" value="<{$user['qq']}>" id='toqq'></input></li>
+          <li style="width: 99%;height: 80px;background: blue;list-style: none;background: #eee;margin-top: 3px;text-align: center;"><input type='button' value='确定' id='forsure'></input></li>
+       	 </ul>
+       </div>
+     </div>
+
+</div>
+<script type="text/javascript">
+  
+$(function(){
+    $('#forsure').click(function(){
+  var touname=$('#toname').val();
+  var tosign=$('#tosign').val();
+  var toqq=$('#toqq').val();
+  var url="<{:U(isreset)}>";
+  
+  var toid="<{$user['id']}>";
+  
+ 
+
+  var toresult='uname'+'='+touname+'&'+'sign'+'='+tosign+'&'+'qq'+'='+toqq+'&id='+toid;
+  
+   $.ajax({
+     url: url,
+     type: 'GET',
+     
+     dataType: 'text',
+     data: toresult
+   })
+   .done(function(s) {
+     console.log(s);
+   })
+   .fail(function() {
+     console.log("error");
+   })
+   .always(function() {
+     console.log("complete");
+   });
+   var toid="<{$user['id']}>";
+ 
+  
+   
+   var theurl='__ROOT__/index.php/Home/User/user/id/'+toid;
+   alert(theurl);
+   window.location.href=theurl;
+   
+})
+
+})
+
+
+</script>
+
+<include file='Application/Common/footer.html'/>
+
+
+</body>
+</html>

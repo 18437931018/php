@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<script type="text/javascript" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="../ueditor/ueditor.all.min.js"></script>
+</head>
+<body>
+	<form action="tijiao.php" method="post">
+		 <script type="text/plain" id="textarea" name="textarea"></script>
+		<script type="text/javascript">
+			var editor=new UE.ui.Editor();
+			editor.render("textarea");
+		</script>
+		
+
+
+			<!-- <tr>
+				<td>加载编辑器的容器
+				<script id="container" name="content" type="text/plain" style="width:700px;height:250px;"></script>
+			                </td>
+			                <script type="text/javascript">
+				//编辑器
+				var ue = UE.getEditor('container', {
+					autoHeightEnabled: false,
+					autoFloatEnabled: false
+				});
+				</script>
+			                <style>
+				/*#edui1_iframeholder{ height:250px!important; overflow:hidden; overflow-y:visible!important} 
+				body.view{overflow-y:visible!important}*/
+			                </style>
+			</tr> -->
+
+			
+			<input type="submit" value="提交" ></input>
+	</form><br /><br/>
+
+
+	<form action="tijiao.php" method="get">
+		<input type="text" id="text" name="text"></input>
+		<input type="file" id="file" name="file"></input>
+		<input type="submit" value="提交"></input>
+	</form><br /><br/>
+	<form action="tijiao.php" method="post">
+		<input type="text" id="text2" name="text2"></input>
+		<input type="file" id="file2" name="file2"></input>
+		<input type="submit" value="提交"></input>
+	</form>
+</body>
+</html>
